@@ -77,7 +77,6 @@ vercel --prod
 
 ## 🎨 Features
 
-- **Multi-page Support**: Two portfolio versions (index.html and v2.html)
 - **Comic Book Theme**: Bold graphics, pop-art aesthetics
 - **Fully Responsive**: Mobile-first design
 - **Fast Performance**: Optimized with Vite
