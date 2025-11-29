@@ -1,736 +1,924 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ST1LLWATER | Backend Engineer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bangers&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+
     <style>
-        /* --- VARIABLES --- */
-        :root {
-            --paper: #fdfbf7;
-            --ink: #1a1a1a;
-            --c-yellow: #ffde34; 
-            --c-blue: #5bc0eb;   
-            --c-red: #ff6b6b;    
-            --c-green: #9bc53d;
-            --shadow-hard: 6px 6px 0px 0px var(--ink);
-            --shadow-hover: 10px 10px 0px 0px var(--ink);
-            --border: 3px solid var(--ink);
-            
-            --font-comic: 'Bangers', cursive;
-            --font-mono: 'Space Mono', monospace;
-        }
+      /* --- VARIABLES --- */
+      :root {
+        --paper: #fdfbf7;
+        --ink: #1a1a1a;
+        --c-yellow: #ffde34;
+        --c-blue: #5bc0eb;
+        --c-red: #ff6b6b;
+        --c-green: #9bc53d;
+        --shadow-hard: 6px 6px 0px 0px var(--ink);
+        --shadow-hover: 10px 10px 0px 0px var(--ink);
+        --border: 3px solid var(--ink);
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        --font-comic: 'Bangers', cursive;
+        --font-mono: 'Space Mono', monospace;
+      }
 
-        body {
-            background-color: var(--paper);
-            background-image: radial-gradient(var(--ink) 0.8px, transparent 0.8px);
-            background-size: 24px 24px;
-            color: var(--ink);
-            font-family: var(--font-mono);
-            overflow-x: hidden;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        /* --- ANIMATIONS --- */
-        @keyframes popIn {
-            0% { transform: scale(0.8) translateY(50px); opacity: 0; }
-            80% { transform: scale(1.02) translateY(-5px); opacity: 1; }
-            100% { transform: scale(1) translateY(0); }
-        }
+      body {
+        background-color: var(--paper);
+        background-image: radial-gradient(var(--ink) 0.8px, transparent 0.8px);
+        background-size: 24px 24px;
+        color: var(--ink);
+        font-family: var(--font-mono);
+        overflow-x: hidden;
+      }
 
-        @keyframes serverPulse {
-            0% { background: var(--c-green); box-shadow: 0 0 5px var(--c-green); }
-            50% { background: #fff; box-shadow: 0 0 0; }
-            100% { background: var(--c-green); box-shadow: 0 0 5px var(--c-green); }
+      /* --- ANIMATIONS --- */
+      @keyframes popIn {
+        0% {
+          transform: scale(0.8) translateY(50px);
+          opacity: 0;
         }
+        80% {
+          transform: scale(1.02) translateY(-5px);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1) translateY(0);
+        }
+      }
 
-        @keyframes spin { 
-            100% { transform: translate(-50%, -50%) rotate(360deg); } 
+      @keyframes serverPulse {
+        0% {
+          background: var(--c-green);
+          box-shadow: 0 0 5px var(--c-green);
         }
+        50% {
+          background: #fff;
+          box-shadow: 0 0 0;
+        }
+        100% {
+          background: var(--c-green);
+          box-shadow: 0 0 5px var(--c-green);
+        }
+      }
 
-        /* --- LAYOUT --- */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 24px;
-            position: relative;
-            z-index: 2;
+      @keyframes spin {
+        100% {
+          transform: translate(-50%, -50%) rotate(360deg);
         }
+      }
 
-        /* --- NAVIGATION --- */
-        nav {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 1000px;
-            padding: 15px 30px;
-            background: #fff;
-            border: var(--border);
-            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; 
-            box-shadow: var(--shadow-hard);
-            z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+      /* --- LAYOUT --- */
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 24px;
+        position: relative;
+        z-index: 2;
+      }
 
-        .logo {
-            font-family: var(--font-comic);
-            font-size: 28px;
-            letter-spacing: 2px;
-            background: var(--ink);
-            color: var(--c-yellow);
-            padding: 5px 15px;
-            transform: rotate(-2deg);
-            border: 2px solid var(--ink);
-        }
+      /* --- NAVIGATION --- */
+      nav {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 1000px;
+        padding: 15px 30px;
+        background: #fff;
+        border: var(--border);
+        border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+        box-shadow: var(--shadow-hard);
+        z-index: 100;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
 
-        .nav-links { display: flex; gap: 25px; font-weight: 700; }
-        .nav-links a { 
-            text-decoration: none; 
-            color: var(--ink); 
-            position: relative;
-            transition: 0.2s;
-        }
-        
-        .nav-links a:hover {
-            color: var(--c-red);
-            text-decoration: underline wavy var(--c-blue);
-        }
+      .logo {
+        font-family: var(--font-comic);
+        font-size: 28px;
+        letter-spacing: 2px;
+        background: var(--ink);
+        color: var(--c-yellow);
+        padding: 5px 15px;
+        transform: rotate(-2deg);
+        border: 2px solid var(--ink);
+      }
 
-        /* --- HERO --- */
+      .nav-links {
+        display: flex;
+        gap: 25px;
+        font-weight: 700;
+      }
+      .nav-links a {
+        text-decoration: none;
+        color: var(--ink);
+        position: relative;
+        transition: 0.2s;
+      }
+
+      .nav-links a:hover {
+        color: var(--c-red);
+        text-decoration: underline wavy var(--c-blue);
+      }
+
+      /* --- HERO --- */
+      .hero {
+        min-height: 90vh;
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        align-items: center;
+        gap: 50px;
+        padding-top: 160px;
+        padding-bottom: 50px;
+      }
+
+      .hero-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero-visual {
+        position: relative;
+        height: 100%;
+        min-height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s
+          backwards;
+      }
+
+      /* --- COMIC SERVER GRAPHIC --- */
+      .server-stack {
+        position: relative;
+        width: 100%;
+        max-width: 350px;
+      }
+
+      .server-unit {
+        background: #fff;
+        border: var(--border);
+        height: 75px;
+        margin-bottom: -10px;
+        position: relative;
+        border-radius: 8px;
+        box-shadow: 4px 4px 0 var(--ink);
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        justify-content: space-between;
+        transition: transform 0.3s;
+        z-index: 1;
+      }
+
+      .server-unit:hover {
+        transform: translateX(-10px);
+        z-index: 10;
+      }
+
+      .server-unit:nth-child(1) {
+        background: var(--c-blue);
+        transform: rotate(-2deg);
+        z-index: 4;
+      }
+      .server-unit:nth-child(2) {
+        background: var(--c-green);
+        transform: rotate(1deg);
+        z-index: 3;
+      }
+      .server-unit:nth-child(3) {
+        background: var(--c-yellow);
+        transform: rotate(-1deg);
+        z-index: 2;
+      }
+      .server-unit:nth-child(4) {
+        background: var(--c-red);
+        transform: rotate(1.5deg);
+        z-index: 1;
+      }
+
+      .server-lights {
+        display: flex;
+        gap: 10px;
+      }
+      .light {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        border: 2px solid var(--ink);
+        background: #333;
+      }
+      .light.active {
+        background: #fff;
+        animation: serverPulse 1s infinite;
+      }
+
+      .code-window {
+        position: absolute;
+        bottom: -30px;
+        right: -20px;
+        background: var(--ink);
+        color: var(--c-green);
+        padding: 15px;
+        border: 3px solid var(--c-yellow);
+        font-family: var(--font-mono);
+        font-size: 12px;
+        width: 200px;
+        box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+        z-index: 10;
+        transform: rotate(3deg);
+      }
+
+      /* --- HERO TEXT ELEMENTS --- */
+      .speech-bubble {
+        background: #fff;
+        border: var(--border);
+        padding: 10px 25px;
+        border-radius: 50px;
+        font-weight: bold;
+        margin-bottom: 25px;
+        position: relative;
+        box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+        animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        display: inline-block;
+      }
+
+      .speech-bubble::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 20px;
+        border-width: 15px 15px 0;
+        border-style: solid;
+        border-color: var(--ink) transparent;
+      }
+      .speech-bubble::before {
+        content: '';
+        position: absolute;
+        bottom: -9px;
+        left: 23px;
+        border-width: 12px 12px 0;
+        border-style: solid;
+        border-color: #fff transparent;
+        z-index: 1;
+      }
+
+      .hero h1 {
+        font-family: var(--font-comic);
+        /* Reduced min/max slightly to ensure single line fit on most screens */
+        font-size: clamp(40px, 6vw, 90px);
+        line-height: 1;
+        color: var(--ink);
+        text-shadow: 4px 4px 0px #ffffff, 8px 8px 0px #3b82f6;
+        margin-bottom: 20px;
+        transform: rotate(-1deg);
+        animation: popIn 0.8s backwards 0.2s;
+        white-space: nowrap; /* Forces single line */
+      }
+
+      .hero h2 {
+        font-size: clamp(20px, 3.5vw, 32px);
+        font-weight: 700;
+        background: var(--c-yellow);
+        display: inline-block;
+        padding: 5px 15px;
+        border: var(--border);
+        margin-bottom: 30px;
+        transform: rotate(2deg);
+        animation: popIn 0.8s backwards 0.4s;
+      }
+
+      .hero p {
+        font-size: 18px;
+        background: #fff;
+        padding: 25px;
+        border: var(--border);
+        margin-bottom: 40px;
+        box-shadow: var(--shadow-hard);
+        animation: popIn 0.8s backwards 0.6s;
+        max-width: 90%;
+      }
+
+      .btn-comic {
+        display: inline-block;
+        background: var(--c-red);
+        color: white;
+        padding: 15px 40px;
+        font-family: var(--font-comic);
+        font-size: 24px;
+        letter-spacing: 1px;
+        text-decoration: none;
+        border: var(--border);
+        box-shadow: var(--shadow-hard);
+        transition: all 0.2s;
+        animation: popIn 0.8s backwards 0.8s;
+      }
+
+      .btn-comic:hover {
+        transform: translate(-3px, -3px);
+        box-shadow: var(--shadow-hover);
+        background: var(--ink);
+      }
+
+      /* --- SECTIONS --- */
+      section {
+        padding: 100px 0;
+      }
+
+      .section-header-wrapper {
+        margin-bottom: 60px;
+        text-align: left;
+        position: relative;
+      }
+
+      .section-title {
+        font-family: var(--font-comic);
+        font-size: 70px;
+        color: #fff;
+        -webkit-text-stroke: 3px var(--ink);
+        text-shadow: 5px 5px 0px var(--ink);
+        position: relative;
+        z-index: 2;
+        display: inline-block;
+      }
+
+      .swoosh {
+        height: 15px;
+        background: var(--c-green);
+        width: 250px;
+        margin-top: -15px;
+        margin-left: 20px;
+        border: var(--border);
+        transform: skewX(-20deg);
+      }
+
+      /* --- BOLD HOVER EFFECT --- */
+      .panel b,
+      .panel strong {
+        transition: all 0.2s ease;
+        cursor: default;
+        position: relative;
+        display: inline-block;
+      }
+
+      .panel b:hover,
+      .panel strong:hover {
+        color: var(--c-red);
+        transform: scale(1.05) rotate(-1deg);
+      }
+
+      .panel b:hover::after,
+      .panel strong:hover::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 30%;
+        background: var(--c-yellow);
+        z-index: -1;
+        opacity: 0.5;
+      }
+
+      /* --- ABOUT PANELS --- */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 2fr 1.5fr;
+        gap: 40px;
+      }
+
+      .panel {
+        background: #fff;
+        border: var(--border);
+        padding: 30px;
+        box-shadow: var(--shadow-hard);
+        position: relative;
+        border-radius: 5px 20px 5px 25px;
+      }
+
+      .tape {
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%) rotate(-2deg);
+        width: 100px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.6);
+        border: 1px solid #ccc;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        z-index: 10;
+      }
+
+      .skill-tag {
+        display: inline-block;
+        border: 2px solid var(--ink);
+        padding: 6px 12px;
+        margin: 4px;
+        font-weight: bold;
+        font-size: 14px;
+        background: #fff;
+        box-shadow: 2px 2px 0 var(--ink);
+        transition: 0.2s;
+      }
+      .skill-tag:hover {
+        transform: translateY(-3px) rotate(-2deg);
+        background: var(--c-blue);
+        box-shadow: 4px 4px 0 var(--ink);
+      }
+
+      /* --- PROJECT STACK --- */
+      .projects-wrapper {
+        position: relative;
+        padding-bottom: 150px;
+      }
+
+      .project-card {
+        background: #fff;
+        border: var(--border);
+        padding: 40px;
+        margin-bottom: 60px;
+        position: sticky;
+        top: 140px;
+        min-height: 400px;
+        display: flex;
+        flex-direction: column;
+        transform-origin: center top;
+        transition: transform 0.3s;
+        box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .project-card:nth-child(1) {
+        border-top: 15px solid var(--c-red);
+        transform: rotate(-1deg);
+      }
+      .project-card:nth-child(2) {
+        border-top: 15px solid var(--c-blue);
+        transform: rotate(1deg);
+      }
+      .project-card:nth-child(3) {
+        border-top: 15px solid var(--c-yellow);
+        transform: rotate(-1.5deg);
+      }
+      .project-card:nth-child(4) {
+        border-top: 15px solid var(--c-green);
+        transform: rotate(0.5deg);
+      }
+
+      .project-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 20px;
+      }
+
+      .project-title {
+        font-family: var(--font-comic);
+        font-size: 36px;
+      }
+
+      .metric-badge {
+        background: var(--c-yellow);
+        border: 2px solid var(--ink);
+        color: var(--ink);
+        padding: 5px 10px;
+        font-weight: bold;
+        display: inline-block;
+        margin-right: 10px;
+        transform: rotate(-2deg);
+      }
+
+      /* --- CONTACT --- */
+      .contact-box {
+        background: var(--c-blue);
+        border: var(--border);
+        padding: 60px;
+        text-align: center;
+        box-shadow: var(--shadow-hard);
+        position: relative;
+        overflow: hidden;
+        min-height: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .starburst {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 200vmax;
+        height: 200vmax;
+        background: repeating-conic-gradient(
+          #fff 0 15deg,
+          transparent 15deg 30deg
+        );
+        opacity: 0.2;
+        animation: spin 20s linear infinite;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .contact-content {
+        position: relative;
+        z-index: 5;
+      }
+
+      .signal-text {
+        font-family: var(--font-comic);
+        font-size: 48px;
+        color: var(--c-yellow);
+        -webkit-text-stroke: 2px var(--ink);
+        text-shadow: 6px 6px 0 var(--ink);
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+      }
+
+      /* --- RESPONSIVE --- */
+      @media (max-width: 900px) {
         .hero {
-            min-height: 90vh;
-            display: grid;
-            grid-template-columns: 1.2fr 1fr; 
-            align-items: center;
-            gap: 50px;
-            padding-top: 160px; 
-            padding-bottom: 50px;
+          grid-template-columns: 1fr;
+          text-align: center;
+          gap: 40px;
         }
-
         .hero-text {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+          align-items: center;
         }
-
-        .hero-visual {
-            position: relative;
-            height: 100%;
-            min-height: 400px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s backwards;
-        }
-
-        /* --- COMIC SERVER GRAPHIC --- */
-        .server-stack {
-            position: relative;
-            width: 100%;
-            max-width: 350px;
-        }
-
-        .server-unit {
-            background: #fff;
-            border: var(--border);
-            height: 75px; 
-            margin-bottom: -10px; 
-            position: relative;
-            border-radius: 8px;
-            box-shadow: 4px 4px 0 var(--ink);
-            display: flex;
-            align-items: center;
-            padding: 0 20px;
-            justify-content: space-between;
-            transition: transform 0.3s;
-            z-index: 1;
-        }
-
-        .server-unit:hover {
-            transform: translateX(-10px); 
-            z-index: 10;
-        }
-
-        .server-unit:nth-child(1) { background: var(--c-blue); transform: rotate(-2deg); z-index: 4; }
-        .server-unit:nth-child(2) { background: var(--c-green); transform: rotate(1deg); z-index: 3; }
-        .server-unit:nth-child(3) { background: var(--c-yellow); transform: rotate(-1deg); z-index: 2; }
-        .server-unit:nth-child(4) { background: var(--c-red); transform: rotate(1.5deg); z-index: 1; }
-
-        .server-lights { display: flex; gap: 10px; }
-        .light {
-            width: 10px; height: 10px;
-            border-radius: 50%;
-            border: 2px solid var(--ink);
-            background: #333;
-        }
-        .light.active {
-            background: #fff;
-            animation: serverPulse 1s infinite;
-        }
-
-        .code-window {
-            position: absolute;
-            bottom: -30px;
-            right: -20px;
-            background: var(--ink);
-            color: var(--c-green);
-            padding: 15px;
-            border: 3px solid var(--c-yellow);
-            font-family: var(--font-mono);
-            font-size: 12px;
-            width: 200px;
-            box-shadow: 8px 8px 0 rgba(0,0,0,0.2);
-            z-index: 10;
-            transform: rotate(3deg);
-        }
-
-        /* --- HERO TEXT ELEMENTS --- */
-        .speech-bubble {
-            background: #fff;
-            border: var(--border);
-            padding: 10px 25px;
-            border-radius: 50px;
-            font-weight: bold;
-            margin-bottom: 25px;
-            position: relative;
-            box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
-            animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: inline-block;
-        }
-        
-        .speech-bubble::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 20px;
-            border-width: 15px 15px 0;
-            border-style: solid;
-            border-color: var(--ink) transparent;
-        }
-        .speech-bubble::before {
-            content: '';
-            position: absolute;
-            bottom: -9px;
-            left: 23px;
-            border-width: 12px 12px 0;
-            border-style: solid;
-            border-color: #fff transparent;
-            z-index: 1;
-        }
-
         .hero h1 {
-            font-family: var(--font-comic);
-            /* Reduced min/max slightly to ensure single line fit on most screens */
-            font-size: clamp(40px, 6vw, 90px);
-            line-height: 1;
-            color: var(--ink);
-            text-shadow: 4px 4px 0px #ffffff, 8px 8px 0px #3b82f6;
-            margin-bottom: 20px;
-            transform: rotate(-1deg);
-            animation: popIn 0.8s backwards 0.2s;
-            white-space: nowrap; /* Forces single line */
+          font-size: 45px;
+        } /* Ensure it fits on mobile */
+        .hero-visual {
+          min-height: 350px;
+        }
+        .server-stack {
+          max-width: 280px;
+          margin: 0 auto;
         }
 
-        .hero h2 {
-            font-size: clamp(20px, 3.5vw, 32px);
-            font-weight: 700;
-            background: var(--c-yellow);
-            display: inline-block;
-            padding: 5px 15px;
-            border: var(--border);
-            margin-bottom: 30px;
-            transform: rotate(2deg);
-            animation: popIn 0.8s backwards 0.4s;
-        }
-
-        .hero p {
-            font-size: 18px;
-            background: #fff;
-            padding: 25px;
-            border: var(--border);
-            margin-bottom: 40px;
-            box-shadow: var(--shadow-hard);
-            animation: popIn 0.8s backwards 0.6s;
-            max-width: 90%;
-        }
-
-        .btn-comic {
-            display: inline-block;
-            background: var(--c-red);
-            color: white;
-            padding: 15px 40px;
-            font-family: var(--font-comic);
-            font-size: 24px;
-            letter-spacing: 1px;
-            text-decoration: none;
-            border: var(--border);
-            box-shadow: var(--shadow-hard);
-            transition: all 0.2s;
-            animation: popIn 0.8s backwards 0.8s;
-        }
-
-        .btn-comic:hover {
-            transform: translate(-3px, -3px);
-            box-shadow: var(--shadow-hover);
-            background: var(--ink);
-        }
-
-        /* --- SECTIONS --- */
-        section { padding: 100px 0; }
-
-        .section-header-wrapper {
-            margin-bottom: 60px;
-            text-align: left;
-            position: relative;
-        }
-
-        .section-title {
-            font-family: var(--font-comic);
-            font-size: 70px;
-            color: #fff;
-            -webkit-text-stroke: 3px var(--ink);
-            text-shadow: 5px 5px 0px var(--ink);
-            position: relative;
-            z-index: 2;
-            display: inline-block;
-        }
-
-        .swoosh {
-            height: 15px;
-            background: var(--c-green);
-            width: 250px;
-            margin-top: -15px;
-            margin-left: 20px;
-            border: var(--border);
-            transform: skewX(-20deg);
-        }
-
-        /* --- BOLD HOVER EFFECT --- */
-        .panel b, .panel strong {
-            transition: all 0.2s ease;
-            cursor: default;
-            position: relative;
-            display: inline-block;
-        }
-
-        .panel b:hover, .panel strong:hover {
-            color: var(--c-red);
-            transform: scale(1.05) rotate(-1deg);
-        }
-        
-        .panel b:hover::after, .panel strong:hover::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 30%;
-            background: var(--c-yellow);
-            z-index: -1;
-            opacity: 0.5;
-        }
-
-        /* --- ABOUT PANELS --- */
         .about-grid {
-            display: grid;
-            grid-template-columns: 2fr 1.5fr;
-            gap: 40px;
+          grid-template-columns: 1fr;
         }
-
-        .panel {
-            background: #fff;
-            border: var(--border);
-            padding: 30px;
-            box-shadow: var(--shadow-hard);
-            position: relative;
-            border-radius: 5px 20px 5px 25px; 
+        .nav-links {
+          display: none;
         }
-
-        .tape {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%) rotate(-2deg);
-            width: 100px;
-            height: 30px;
-            background: rgba(255, 255, 255, 0.6);
-            border: 1px solid #ccc;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-            z-index: 10;
-        }
-
-        .skill-tag {
-            display: inline-block;
-            border: 2px solid var(--ink);
-            padding: 6px 12px;
-            margin: 4px;
-            font-weight: bold;
-            font-size: 14px;
-            background: #fff;
-            box-shadow: 2px 2px 0 var(--ink);
-            transition: 0.2s;
-        }
-        .skill-tag:hover {
-            transform: translateY(-3px) rotate(-2deg);
-            background: var(--c-blue);
-            box-shadow: 4px 4px 0 var(--ink);
-        }
-
-        /* --- PROJECT STACK --- */
-        .projects-wrapper {
-            position: relative;
-            padding-bottom: 150px;
-        }
-
         .project-card {
-            background: #fff;
-            border: var(--border);
-            padding: 40px;
-            margin-bottom: 60px;
-            position: sticky;
-            top: 140px; 
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            transform-origin: center top;
-            transition: transform 0.3s;
-            box-shadow: 0 -5px 10px rgba(0,0,0,0.1);
+          padding: 25px;
+          top: 120px;
         }
-
-        .project-card:nth-child(1) { border-top: 15px solid var(--c-red); transform: rotate(-1deg); }
-        .project-card:nth-child(2) { border-top: 15px solid var(--c-blue); transform: rotate(1deg); }
-        .project-card:nth-child(3) { border-top: 15px solid var(--c-yellow); transform: rotate(-1.5deg); }
-        .project-card:nth-child(4) { border-top: 15px solid var(--c-green); transform: rotate(0.5deg); }
-
-        .project-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 20px;
-        }
-
-        .project-title {
-            font-family: var(--font-comic);
-            font-size: 36px;
-        }
-
-        .metric-badge {
-            background: var(--c-yellow);
-            border: 2px solid var(--ink);
-            color: var(--ink);
-            padding: 5px 10px;
-            font-weight: bold;
-            display: inline-block;
-            margin-right: 10px;
-            transform: rotate(-2deg);
-        }
-
-        /* --- CONTACT --- */
-        .contact-box {
-            background: var(--c-blue);
-            border: var(--border);
-            padding: 60px;
-            text-align: center;
-            box-shadow: var(--shadow-hard);
-            position: relative;
-            overflow: hidden; 
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .starburst {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 200vmax;
-            height: 200vmax;
-            background: repeating-conic-gradient(#fff 0 15deg, transparent 15deg 30deg);
-            opacity: 0.2;
-            animation: spin 20s linear infinite;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .contact-content { position: relative; z-index: 5; }
-
-        .signal-text {
-            font-family: var(--font-comic);
-            font-size: 48px;
-            color: var(--c-yellow); 
-            -webkit-text-stroke: 2px var(--ink); 
-            text-shadow: 6px 6px 0 var(--ink); 
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-        }
-
-        /* --- RESPONSIVE --- */
-        @media (max-width: 900px) {
-            .hero { 
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 40px;
-            }
-            .hero-text { align-items: center; }
-            .hero h1 { font-size: 45px; } /* Ensure it fits on mobile */
-            .hero-visual { min-height: 350px; }
-            .server-stack { max-width: 280px; margin: 0 auto; }
-            
-            .about-grid { grid-template-columns: 1fr; }
-            .nav-links { display: none; }
-            .project-card { padding: 25px; top: 120px; }
-        }
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <nav>
-        <div class="logo">ST1LLWATER</div>
-        <div class="nav-links">
-            <a href="#about">About</a>
-            <a href="#experience">Exp</a>
-            <a href="#projects">Work</a>
-            <a href="#contact">Contact</a>
-        </div>
+      <div class="logo">ST1LLWATER</div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#experience">Exp</a>
+        <a href="#projects">Work</a>
+        <a href="#contact">Contact</a>
+      </div>
     </nav>
 
     <div class="container">
-        <section class="hero">
-            
-            <div class="hero-text">
-                <div class="speech-bubble">Hi, I'm...</div>
-                <h1>ALOK PUNJ SHARMA</h1>
-                <h2>// THE BACKEND ARCHITECT</h2>
-                <p>
-                    I build invisible systems that run the world. Specializing in <b>Node.js, Go, and Kubernetes</b>. I optimize APIs, squash concurrency bugs, and scale infrastructure.
-                </p>
-                <a href="#projects" class="btn-comic">VIEW MISSIONS</a>
+      <section class="hero">
+        <div class="hero-text">
+          <div class="speech-bubble">Hi, I'm...</div>
+          <h1>ALOK PUNJ SHARMA</h1>
+          <h2>// THE BACKEND ARCHITECT</h2>
+          <p>
+            I build invisible systems that run the world. Specializing in
+            <b>Node.js, Go, and Kubernetes</b>. I optimize APIs, squash
+            concurrency bugs, and scale infrastructure.
+          </p>
+          <a href="#projects" class="btn-comic">VIEW MISSIONS</a>
+        </div>
+
+        <div class="hero-visual">
+          <div class="server-stack">
+            <div class="server-unit">
+              <span style="font-weight: bold; font-size: 18px"
+                >API_GATEWAY</span
+              >
+              <div class="server-lights">
+                <div class="light active"></div>
+                <div class="light"></div>
+                <div class="light active"></div>
+              </div>
             </div>
 
-            <div class="hero-visual">
-                <div class="server-stack">
-                    <div class="server-unit">
-                        <span style="font-weight:bold; font-size: 18px;">API_GATEWAY</span>
-                        <div class="server-lights">
-                            <div class="light active"></div>
-                            <div class="light"></div>
-                            <div class="light active"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="server-unit">
-                        <span style="font-weight:bold; font-size: 18px;">LOAD_BALANCER</span>
-                        <div class="server-lights">
-                            <div class="light active"></div>
-                            <div class="light active"></div>
-                            <div class="light active"></div>
-                        </div>
-                    </div>
-
-                    <div class="server-unit">
-                        <span style="font-weight:bold; font-size: 18px;">WORKER_NODE</span>
-                        <div class="server-lights">
-                            <div class="light active"></div>
-                            <div class="light active"></div>
-                            <div class="light"></div>
-                        </div>
-                    </div>
-
-                    <div class="server-unit">
-                        <span style="font-weight:bold; font-size: 18px;">DB_CLUSTER</span>
-                        <div class="server-lights">
-                            <div class="light"></div>
-                            <div class="light active"></div>
-                            <div class="light active"></div>
-                        </div>
-                    </div>
-
-                    <div class="code-window">
-                        > SYSTEM_READY<br>
-                        > 250ms LATENCY<br>
-                        > K8S DEPLOYED...
-                    </div>
-                </div>
+            <div class="server-unit">
+              <span style="font-weight: bold; font-size: 18px"
+                >LOAD_BALANCER</span
+              >
+              <div class="server-lights">
+                <div class="light active"></div>
+                <div class="light active"></div>
+                <div class="light active"></div>
+              </div>
             </div>
 
-        </section>
-
-        <section id="about">
-            <div class="section-header-wrapper">
-                <h2 class="section-title">ORIGIN STORY</h2>
-                <div class="swoosh"></div>
-            </div>
-            
-            <div class="about-grid">
-                <div class="panel">
-                    <div class="tape"></div>
-                    <h3 style="font-family:var(--font-comic); font-size:28px; margin-bottom:15px;">THE DOSSIER</h3>
-                    <p style="margin-bottom: 20px;">
-                        Based in <b>Shillong, India</b>. My journey began with hacking data flows in hackathons. I realized that while frontend is the face, backend is the muscle.
-                    </p>
-                    <p>
-                        [cite_start]I hold a Master's from <b>VIT Vellore (9.55 CGPA)</b> [cite: 37-40]. I've engineered high-speed APIs for US startups and led teams to victory in major hackathons.
-                    </p>
-                </div>
-
-                <div class="panel" style="background: var(--c-yellow);">
-                    <div class="tape"></div>
-                    <h3 style="font-family:var(--font-comic); font-size:28px; margin-bottom:15px;">WEAPONRY</h3>
-                    <div>
-                        <span class="skill-tag">Go Lang</span>
-                        <span class="skill-tag">Node.js</span>
-                        <span class="skill-tag">Fastify</span>
-                        <span class="skill-tag">Docker</span>
-                        <span class="skill-tag">Kubernetes</span>
-                        <span class="skill-tag">Redis</span>
-                        <span class="skill-tag">Postgres</span>
-                        <span class="skill-tag">WebSockets</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="experience">
-            <div class="section-header-wrapper">
-                <h2 class="section-title">ADVENTURES</h2>
-                <div class="swoosh" style="background: var(--c-blue);"></div>
+            <div class="server-unit">
+              <span style="font-weight: bold; font-size: 18px"
+                >WORKER_NODE</span
+              >
+              <div class="server-lights">
+                <div class="light active"></div>
+                <div class="light active"></div>
+                <div class="light"></div>
+              </div>
             </div>
 
-            <div class="panel" style="margin-bottom: 30px; border-left: 10px solid var(--c-blue);">
-                <div style="display:flex; justify-content:space-between; flex-wrap:wrap;">
-                    <h3 style="font-size: 22px; font-weight:bold;">Backend Engineer @ Presence</h3>
-                    <span style="background:var(--ink); color:white; padding:2px 8px; font-size:12px;">Mar 2022 - Apr 2025</span>
-                </div>
-                <ul style="margin-top: 15px; margin-left: 20px; list-style-type: square;">
-                    <li>Designed backend infrastructure using <b>Kubernetes microservices</b>.</li>
-                    [cite_start]<li>Boosted system responsiveness by <b>80%</b> via Redis caching strategies [cite: 46-47].</li>
-                </ul>
+            <div class="server-unit">
+              <span style="font-weight: bold; font-size: 18px">DB_CLUSTER</span>
+              <div class="server-lights">
+                <div class="light"></div>
+                <div class="light active"></div>
+                <div class="light active"></div>
+              </div>
             </div>
 
-            <div class="panel" style="margin-bottom: 30px; border-left: 10px solid var(--c-red);">
-                <div style="display:flex; justify-content:space-between; flex-wrap:wrap;">
-                    <h3 style="font-size: 22px; font-weight:bold;">Backend Engineer @ Mercor</h3>
-                    <span style="background:var(--ink); color:white; padding:2px 8px; font-size:12px;">Jun 2023 - Nov 2023</span>
-                </div>
-                <ul style="margin-top: 15px; margin-left: 20px; list-style-type: square;">
-                    <li>Orchestrated an AI-GPT framework enhancing speeds by <b>200%</b>.</li>
-                    [cite_start]<li>Engineered high-performance <b>tRPC APIs</b> for US-based operations [cite: 52-53].</li>
-                </ul>
+            <div class="code-window">
+              > SYSTEM_READY<br />
+              > 250ms LATENCY<br />
+              > K8S DEPLOYED...
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
 
-        <section id="projects">
-            <div class="section-header-wrapper">
-                <h2 class="section-title">MISSIONS</h2>
-                <div class="swoosh" style="background: var(--c-red);"></div>
+      <section id="about">
+        <div class="section-header-wrapper">
+          <h2 class="section-title">ORIGIN STORY</h2>
+          <div class="swoosh"></div>
+        </div>
+
+        <div class="about-grid">
+          <div class="panel">
+            <div class="tape"></div>
+            <h3
+              style="
+                font-family: var(--font-comic);
+                font-size: 28px;
+                margin-bottom: 15px;
+              "
+            >
+              THE DOSSIER
+            </h3>
+            <p style="margin-bottom: 20px">
+              Based in <b>Shillong, India</b>. My journey began with hacking
+              data flows in hackathons. I realized that while frontend is the
+              face, backend is the muscle.
+            </p>
+            <p>
+              I hold a Master's from <b>VIT Vellore (9.55 CGPA)</b>. I've
+              engineered high-speed APIs for US startups and led teams to
+              victory in major hackathons.
+            </p>
+          </div>
+
+          <div class="panel" style="background: var(--c-yellow)">
+            <div class="tape"></div>
+            <h3
+              style="
+                font-family: var(--font-comic);
+                font-size: 28px;
+                margin-bottom: 15px;
+              "
+            >
+              WEAPONRY
+            </h3>
+            <div>
+              <span class="skill-tag">Go Lang</span>
+              <span class="skill-tag">Node.js</span>
+              <span class="skill-tag">Fastify</span>
+              <span class="skill-tag">Docker</span>
+              <span class="skill-tag">Kubernetes</span>
+              <span class="skill-tag">Redis</span>
+              <span class="skill-tag">Postgres</span>
+              <span class="skill-tag">WebSockets</span>
             </div>
+          </div>
+        </div>
+      </section>
 
-            <div class="projects-wrapper">
+      <section id="experience">
+        <div class="section-header-wrapper">
+          <h2 class="section-title">ADVENTURES</h2>
+          <div class="swoosh" style="background: var(--c-blue)"></div>
+        </div>
 
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3 class="project-title">NSFW CLASSIFICATION</h3>
-                    </div>
-                    <p style="margin-bottom: 20px;">
-                        A high-velocity API built for speed. Leveraged <b>Fastify</b> to achieve <b>250ms response times</b>. [cite_start]Containerized for instant deployment [cite: 6, 9-12].
-                    </p>
-                    <div style="margin-bottom: 20px;">
-                        <span class="metric-badge">FASTIFY</span>
-                        <span class="metric-badge">DOCKERIZED</span>
-                    </div>
-                    <div style="font-size: 14px; font-weight: bold; color: var(--c-blue);">
-                        #NodeJS #TypeScript #AI_Model
-                    </div>
-                </div>
+        <div
+          class="panel"
+          style="margin-bottom: 30px; border-left: 10px solid var(--c-blue)"
+        >
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              flex-wrap: wrap;
+            "
+          >
+            <h3 style="font-size: 22px; font-weight: bold">
+              Backend Engineer @ Presence
+            </h3>
+            <span
+              style="
+                background: var(--ink);
+                color: white;
+                padding: 2px 8px;
+                font-size: 12px;
+              "
+              >Mar 2022 - Apr 2025</span
+            >
+          </div>
+          <ul
+            style="margin-top: 15px; margin-left: 20px; list-style-type: square"
+          >
+            <li>
+              Designed backend infrastructure using
+              <b>Kubernetes microservices</b>.
+            </li>
+            <li>
+              Boosted system responsiveness by <b>80%</b> via Redis caching
+              strategies.
+            </li>
+          </ul>
+        </div>
 
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3 class="project-title">BHEJ-IO TRANSFER</h3>
-                    </div>
-                    <p style="margin-bottom: 20px;">
-                        Real-time file transfer protocol. [cite_start]Utilized <b>Go-routines</b> to broadcast data to massive user connections simultaneously with low latency [cite: 18-22].
-                    </p>
-                    <div style="margin-bottom: 20px;">
-                        <span class="metric-badge">WEBSOCKETS</span>
-                        <span class="metric-badge">CONCURRENCY</span>
-                    </div>
-                    <div style="font-size: 14px; font-weight: bold; color: var(--c-red);">
-                        #Golang #Gin #Multithreading
-                    </div>
-                </div>
+        <div
+          class="panel"
+          style="margin-bottom: 30px; border-left: 10px solid var(--c-red)"
+        >
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              flex-wrap: wrap;
+            "
+          >
+            <h3 style="font-size: 22px; font-weight: bold">
+              Backend Engineer @ Mercor
+            </h3>
+            <span
+              style="
+                background: var(--ink);
+                color: white;
+                padding: 2px 8px;
+                font-size: 12px;
+              "
+              >Jun 2023 - Nov 2023</span
+            >
+          </div>
+          <ul
+            style="margin-top: 15px; margin-left: 20px; list-style-type: square"
+          >
+            <li>
+              Orchestrated an AI-GPT framework enhancing speeds by <b>200%</b>.
+            </li>
+            <li>
+              Engineered high-performance <b>tRPC APIs</b> for US-based
+              operations.
+            </li>
+          </ul>
+        </div>
+      </section>
 
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3 class="project-title">BOOKMARKEE API</h3>
-                    </div>
-                    <p style="margin-bottom: 20px;">
-                        A fortified bookmark management system. [cite_start]Built with <b>NestJS</b> modular architecture and battle-tested with Jest E2E suites [cite: 13-17].
-                    </p>
-                    <div style="margin-bottom: 20px;">
-                        <span class="metric-badge">SCALABLE</span>
-                        <span class="metric-badge">TESTED</span>
-                    </div>
-                    <div style="font-size: 14px; font-weight: bold; color: var(--c-yellow);">
-                        #NestJS #Postgres #Jest
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3 class="project-title">HACKATHON WINS</h3>
-                    </div>
-                    <p style="margin-bottom: 20px;">
-                        [cite_start]Secured 1st Runner Up in <b>Hack The League</b> (1700+ rivals) and 2nd Place in MLH Don't Go Hacking My Heart [cite: 55-60].
-                    </p>
-                    <div style="margin-bottom: 20px;">
-                        <span class="metric-badge">8+ WINS</span>
-                        <span class="metric-badge">LEADERSHIP</span>
-                    </div>
-                </div>
+      <section id="projects">
+        <div class="section-header-wrapper">
+          <h2 class="section-title">MISSIONS</h2>
+          <div class="swoosh" style="background: var(--c-red)"></div>
+        </div>
 
+        <div class="projects-wrapper">
+          <div class="project-card">
+            <div class="project-header">
+              <h3 class="project-title">NSFW CLASSIFICATION</h3>
             </div>
-        </section>
-
-        <section id="contact">
-            <div class="contact-box">
-                <div class="starburst"></div>
-                <div class="contact-content">
-                    <h2 class="signal-text">
-                        SEND THE SIGNAL
-                    </h2>
-                    <p style="margin-bottom: 30px; font-size: 18px; color: #fff;">
-                        Ready for the next backend mission?
-                    </p>
-                    <a href="mailto:alokpunj88@gmail.com" class="btn-comic" style="background:#fff; color:var(--ink);">
-                        CONTACT HQ
-                    </a>
-                </div>
+            <p style="margin-bottom: 20px">
+              A high-velocity API built for speed. Leveraged <b>Fastify</b> to
+              achieve <b>250ms response times</b>. Containerized for instant
+              deployment.
+            </p>
+            <div style="margin-bottom: 20px">
+              <span class="metric-badge">FASTIFY</span>
+              <span class="metric-badge">DOCKERIZED</span>
             </div>
-            <footer style="text-align: center; margin-top: 50px; font-size: 12px; opacity: 0.7;">
-                &copy; 2025 ST1LLWATER // ALOK PUNJ SHARMA
-            </footer>
-        </section>
+            <div
+              style="font-size: 14px; font-weight: bold; color: var(--c-blue)"
+            >
+              #NodeJS #TypeScript #AI_Model
+            </div>
+          </div>
 
+          <div class="project-card">
+            <div class="project-header">
+              <h3 class="project-title">BHEJ-IO TRANSFER</h3>
+            </div>
+            <p style="margin-bottom: 20px">
+              Real-time file transfer protocol. Utilized
+              <b>Go-routines</b> to broadcast data to massive user connections
+              simultaneously with low latency.
+            </p>
+            <div style="margin-bottom: 20px">
+              <span class="metric-badge">WEBSOCKETS</span>
+              <span class="metric-badge">CONCURRENCY</span>
+            </div>
+            <div
+              style="font-size: 14px; font-weight: bold; color: var(--c-red)"
+            >
+              #Golang #Gin #Multithreading
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-header">
+              <h3 class="project-title">BOOKMARKEE API</h3>
+            </div>
+            <p style="margin-bottom: 20px">
+              A fortified bookmark management system. Built with
+              <b>NestJS</b> modular architecture and battle-tested with Jest E2E
+              suites.
+            </p>
+            <div style="margin-bottom: 20px">
+              <span class="metric-badge">SCALABLE</span>
+              <span class="metric-badge">TESTED</span>
+            </div>
+            <div
+              style="font-size: 14px; font-weight: bold; color: var(--c-yellow)"
+            >
+              #NestJS #Postgres #Jest
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-header">
+              <h3 class="project-title">HACKATHON WINS</h3>
+            </div>
+            <p style="margin-bottom: 20px">
+              Secured 1st Runner Up in <b>Hack The League</b> (1700+ rivals) and
+              2nd Place in MLH Don't Go Hacking My Heart.
+            </p>
+            <div style="margin-bottom: 20px">
+              <span class="metric-badge">8+ WINS</span>
+              <span class="metric-badge">LEADERSHIP</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="contact-box">
+          <div class="starburst"></div>
+          <div class="contact-content">
+            <h2 class="signal-text">SEND THE SIGNAL</h2>
+            <p style="margin-bottom: 30px; font-size: 18px; color: #fff">
+              Ready for the next backend mission?
+            </p>
+            <a
+              href="mailto:alokpunj88@gmail.com"
+              class="btn-comic"
+              style="background: #fff; color: var(--ink)"
+            >
+              CONTACT HQ
+            </a>
+          </div>
+        </div>
+        <footer
+          style="
+            text-align: center;
+            margin-top: 50px;
+            font-size: 12px;
+            opacity: 0.7;
+          "
+        >
+          &copy; 2025 ST1LLWATER // ALOK PUNJ SHARMA
+        </footer>
+      </section>
     </div>
 
     <script>
-        // DYNAMIC STACKING OFFSET
-        const cards = document.querySelectorAll('.project-card');
-        const startTop = 140; 
-        const offsetStep = 40; 
+      // DYNAMIC STACKING OFFSET
+      const cards = document.querySelectorAll('.project-card');
+      const startTop = 140;
+      const offsetStep = 40;
 
-        cards.forEach((card, index) => {
-            card.style.top = `${startTop + (index * offsetStep)}px`;
-        });
+      cards.forEach((card, index) => {
+        card.style.top = `${startTop + index * offsetStep}px`;
+      });
     </script>
-</body>
+  </body>
 </html>
