@@ -15,6 +15,7 @@
         --paper: #fdfbf7;
         --ink: #1a1a1a;
         --c-yellow: #ffde34;
+        --c-yellow-dark: #d4a000;
         --c-blue: #5bc0eb;
         --c-red: #ff6b6b;
         --c-green: #9bc53d;
@@ -496,7 +497,7 @@
         flex-direction: column;
         transform-origin: center top;
         transition: transform 0.3s;
-        box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--shadow-hard);
       }
       .project-card:nth-child(1) {
         border-top: 15px solid var(--c-red);
@@ -513,6 +514,14 @@
       .project-card:nth-child(4) {
         border-top: 15px solid var(--c-green);
         transform: rotate(0.5deg);
+      }
+      .project-card:nth-child(5) {
+        border-top: 15px solid var(--c-red);
+        transform: rotate(-0.8deg);
+      }
+      .project-card:nth-child(6) {
+        border-top: 15px solid var(--c-blue);
+        transform: rotate(1.2deg);
       }
 
       .project-header {
@@ -924,7 +933,11 @@
               <span class="metric-badge">TESTED</span>
             </div>
             <div
-              style="font-size: 14px; font-weight: bold; color: var(--c-yellow)"
+              style="
+                font-size: 14px;
+                font-weight: bold;
+                color: var(--c-yellow-dark);
+              "
             >
               #NestJS #Postgres #Jest
             </div>
@@ -932,15 +945,65 @@
 
           <div class="project-card">
             <div class="project-header">
-              <h3 class="project-title">HACKATHON WINS</h3>
+              <h3 class="project-title">GO-RELAY HUB</h3>
             </div>
             <p style="margin-bottom: 20px">
-              Secured 1st Runner Up in <b>Hack The League</b> (1700+ rivals) and
-              2nd Place in MLH Don't Go Hacking My Heart.
+              Unified gRPC notification orchestration. Asynchronously routes
+              Email, SMS, and Push alerts via message queues for high-throughput
+              delivery.
             </p>
             <div style="margin-bottom: 20px">
-              <span class="metric-badge">8+ WINS</span>
-              <span class="metric-badge">LEADERSHIP</span>
+              <span class="metric-badge">gRPC</span>
+              <span class="metric-badge">PROTOBUF</span>
+            </div>
+            <div
+              style="font-size: 14px; font-weight: bold; color: var(--c-blue)"
+            >
+              #Golang #Microservices #MessageQueue
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-header">
+              <h3 class="project-title">REMDIS DB</h3>
+            </div>
+            <p style="margin-bottom: 20px">
+              A distributed Key-Value store engineered in Elixir. Implements
+              Redis-compatible protocol with atomic operations and massive
+              concurrency support.
+            </p>
+            <div style="margin-bottom: 20px">
+              <span class="metric-badge">ELIXIR</span>
+              <span class="metric-badge">IN-MEMORY</span>
+            </div>
+            <div
+              style="font-size: 14px; font-weight: bold; color: var(--c-red)"
+            >
+              #Elixir #DistributedSystems #KVStore
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-header">
+              <h3 class="project-title">TBX STREAM BOT</h3>
+            </div>
+            <p style="margin-bottom: 20px">
+              Advanced media processing engine. Handles multi-threaded M3U8
+              stream downloads with stealth mechanics and intelligent queue
+              management.
+            </p>
+            <div style="margin-bottom: 20px">
+              <span class="metric-badge">STREAMING</span>
+              <span class="metric-badge">BOT</span>
+            </div>
+            <div
+              style="
+                font-size: 14px;
+                font-weight: bold;
+                color: var(--c-yellow-dark);
+              "
+            >
+              #NodeJS #FFmpeg #Concurrency
             </div>
           </div>
         </div>
